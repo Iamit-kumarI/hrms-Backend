@@ -31,17 +31,13 @@ public class EmployeeController {
             throw new RuntimeException("Only HR or ADMIN can create employees");
         }
 
-        // Map DTO to MongoDB Employee entity
         Employee employee = new Employee();
         employee.setName(dto.getName());
         employee.setEmail(dto.getEmail());
         employee.setDepartment(dto.getDepartment());
-        // If HR/ADMIN wants to assign role, else default to EMPLOYEE
         employee.setRole(dto.getRole() != null ? dto.getRole().name() : Role.EMPLOYEE.name());
-
         return service.saveEmployee(employee);
     }
-
     @GetMapping
     public List<Employee> getEmployees() {
         return service.getAllEmployees();
